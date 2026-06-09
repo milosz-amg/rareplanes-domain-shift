@@ -25,3 +25,6 @@ venv/
 # System / IDE
 .DS_Store
 *.swp
+
+# Harness Claude Code (lokalne, nie commitowac)
+.claude/
