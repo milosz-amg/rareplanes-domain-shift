@@ -30,3 +30,6 @@ venv/
 .claude/
 
 context/
+
+# Przypadkowe lokalne klony repo w katalogu notebookow
+notebooks/rareplanes-domain-shift/
