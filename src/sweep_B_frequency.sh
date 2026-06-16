@@ -10,6 +10,7 @@ set -euo pipefail
 EPOCHS="${EPOCHS:-60}"
 BATCH="${BATCH:-64}"
 WORKERS="${WORKERS:-8}"
+DEVICE="${DEVICE:-0}"
 
 python3 src/make_frequency_degraded_dataset.py \
   --src data/yolo/synthetic_10k \
@@ -26,6 +27,7 @@ python3 src/train_yolo.py \
   --batch "$BATCH" \
   --imgsz 512 \
   --seed 42 \
+  --device "$DEVICE" \
   --workers "$WORKERS" \
   --val-data data/yolo/synthetic_10k_b1_blur_noise/data.yaml
 
@@ -33,6 +35,7 @@ python3 src/eval_per_size.py \
   --weights runs/expB1_blur_noise_10k_ml/weights/best.pt \
   --img-dir data/real/PS-RGB_tiled/PS-RGB_tiled \
   --coco-gt data/real/annotations/instances_test_aircraft.json \
+  --device "$DEVICE" \
   --name expB1_blur_noise_10k_ml
 
 python3 src/make_frequency_degraded_dataset.py \
@@ -49,6 +52,7 @@ python3 src/train_yolo.py \
   --batch "$BATCH" \
   --imgsz 512 \
   --seed 42 \
+  --device "$DEVICE" \
   --workers "$WORKERS" \
   --val-data data/yolo/synthetic_10k_b2_noise/data.yaml
 
@@ -56,6 +60,7 @@ python3 src/eval_per_size.py \
   --weights runs/expB2_noise_10k_ml/weights/best.pt \
   --img-dir data/real/PS-RGB_tiled/PS-RGB_tiled \
   --coco-gt data/real/annotations/instances_test_aircraft.json \
+  --device "$DEVICE" \
   --name expB2_noise_10k_ml
 
 python3 src/make_frequency_degraded_dataset.py \
@@ -74,6 +79,7 @@ python3 src/train_yolo.py \
   --batch "$BATCH" \
   --imgsz 512 \
   --seed 42 \
+  --device "$DEVICE" \
   --workers "$WORKERS" \
   --val-data data/yolo/synthetic_10k_b3_blur_noise_jpeg/data.yaml
 
@@ -81,4 +87,5 @@ python3 src/eval_per_size.py \
   --weights runs/expB3_blur_noise_jpeg_10k_ml/weights/best.pt \
   --img-dir data/real/PS-RGB_tiled/PS-RGB_tiled \
   --coco-gt data/real/annotations/instances_test_aircraft.json \
+  --device "$DEVICE" \
   --name expB3_blur_noise_jpeg_10k_ml

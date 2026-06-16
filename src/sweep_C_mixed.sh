@@ -11,6 +11,7 @@ set -euo pipefail
 EPOCHS="${EPOCHS:-60}"
 BATCH="${BATCH:-64}"
 WORKERS="${WORKERS:-8}"
+DEVICE="${DEVICE:-0}"
 
 pcts=(1 5 10 25)
 fracs=(0.01 0.05 0.10 0.25)
@@ -36,6 +37,7 @@ for i in "${!pcts[@]}"; do
     --batch "$BATCH" \
     --imgsz 512 \
     --seed 42 \
+    --device "$DEVICE" \
     --workers "$WORKERS" \
     --val-data "data/yolo/${dataset}/data.yaml"
 
@@ -43,5 +45,6 @@ for i in "${!pcts[@]}"; do
     --weights "runs/${run}/weights/best.pt" \
     --img-dir data/real/PS-RGB_tiled/PS-RGB_tiled \
     --coco-gt data/real/annotations/instances_test_aircraft.json \
+    --device "$DEVICE" \
     --name "${run}"
 done
